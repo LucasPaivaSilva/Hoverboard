@@ -72,7 +72,7 @@ GenerateClassCluster=0
 DocumentUniqueId=TITKRTKP
 
 [Document3]
-DocumentPath=..\..\..\..\..\Altium\Lib-do-Paiva\PaivacbLib1.PcbLib
+DocumentPath=..\..\..\..\..\AltiumLib\Lib-do-Paiva\PaivacbLib1.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -86,10 +86,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=TSUCBVJI
+DocumentUniqueId=
 
 [Document4]
-DocumentPath=..\..\..\..\..\Altium\Lib-do-Paiva\SPaivachlib1.SchLib
+DocumentPath=..\..\..\..\..\AltiumLib\Lib-do-Paiva\SPaivachlib1.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -103,7 +103,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=PFIGVABN
+DocumentUniqueId=
 
 [Configuration1]
 Name=Sources
