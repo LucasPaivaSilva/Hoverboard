@@ -39,22 +39,22 @@ void escreve_USART_Flash(const char *c)	//escreve String (Flash)
 {
    for (;pgm_read_byte(&(*c))!=0;c++) USART_Transmite(pgm_read_byte(&(*c)));
 }
-//---------------------------------------------------------------------------	
-//Conversão de um número em seus digitos individuais
-//---------------------------------------------------------------------------
-// void ident_num(unsigned int valor, unsigned char *disp)
-// {   
-//  	unsigned char n;
-// 
-// 	for(n=0; n<tam_vetor; n++)
-// 		disp[n] = 0 + conv_ascii;	//limpa vetor para armazenagem dos digitos 
-// 
-// 	do
-// 	{
-//        *disp = (valor%10) + conv_ascii;	//pega o resto da divisao por 10 
-// 	   valor /=10;		//pega o inteiro da divisão por 10
-// 	   disp++;
-// 
-// 	}while (valor!=0);
-// }
-//------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------	
+// Conversão de um número em seus digitos individuais
+// ---------------------------------------------------------------------------
+void ident_num(unsigned int valor, unsigned char *disp)
+{   
+ 	unsigned char n;
+
+	for(n=0; n<tam_vetor; n++)
+		disp[n] = 0 + conv_ascii;	//limpa vetor para armazenagem dos digitos 
+
+	do
+	{
+       *disp = (valor%10) + conv_ascii;	//pega o resto da divisao por 10 
+	   valor /=10;		//pega o inteiro da divisão por 10
+	   disp++;
+
+	}while (valor!=0);
+}
+/*------------------------------------------------------------------------------*/
