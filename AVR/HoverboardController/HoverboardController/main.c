@@ -7,11 +7,10 @@
 #include "def_principais.h"
 #include <avr/io.h>
 unsigned char showStr[4];
-float CurrentInput = 0;
 int x;
-int V1;
-int V2;
-float V3;
+volatile int V1;
+int MeasuredCurrent; 
+int MeasuredVoltage;
 unsigned int NewFromSerial = 0;
 unsigned char recived_str[3];
 int velocity;
@@ -19,21 +18,13 @@ int CurrentVelocity = 0;
 int Amode;
 int teste;
 int CurLimit;
+int ShowTime;
+#define midPoint 524
+
 uint16_t ReadADC(uint8_t ch)
 {
-	// select the corresponding channel 0~7
-	// ANDing with ?7? will always keep the value
-	// of ?ch? between 0 and 7
-	ch &= 0b00000111;  // AND operation with 7
-	ADMUX = (ADMUX & 0xF8)|ch; // clears the bottom 3 bits before ORing
-	
-	// start single convertion
-	// write ?1? to ADSC
+	ADMUX = (ADMUX & 0xF8)|ch;
 	ADCSRA |= (1<<ADSC);
-	
-	// wait for conversion to complete
-	// ADSC becomes ?0? again
-	// till then, run loop continuously
 	while(ADCSRA & (1<<ADSC));
 	
 	return (ADC);
@@ -70,7 +61,16 @@ ISR(USART_RX_vect)
 			recived_str[1]= USART_Recebe();
 			recived_str[2]= USART_Recebe();
 			CurLimit = (int)((recived_str[1]-'0')*10) + (int)(recived_str[2]-'0');
+			CurLimit = CurLimit * 10;
+			CurLimit = (int) CurLimit + midPoint;
+			ident_num(CurLimit, showStr);
 			USART_Transmite('K');
+			USART_Transmite(':');
+			USART_Transmite(showStr[3]);
+			USART_Transmite(showStr[2]);
+			USART_Transmite(showStr[1]);
+			USART_Transmite(showStr[0]);
+			USART_Transmite('\n');
 			recived = 1;
 		}
 	}
@@ -153,22 +153,49 @@ int main(void)
     while (1) 
     {
 		V1 = 0;
-		V2 = 0;
-		CurrentInput = 0;
-// 		for (x=0;x<=10;x++)
-// 		{
-// 			V1 = ReadADC(0) + V1;
-// 			V2 = ReadADC(1) + V2;
-// 			_delay_us(10);
-// 		}
-		V1 = ReadADC(4) - 512;
-		if (V1>=CurLimit)
+		for (x=0;x<10;x++)
 		{
-			teste = 100;
-			Amode = 3;
-			USART_Transmite('E');
+			V1 = (int) ReadADC(4) + V1;
+			_delay_us(10);
 		}
-		_delay_ms(10);
+		
+		MeasuredCurrent = (int) V1/10;
+		MeasuredVoltage = (int) ReadADC(0) * 10;
+		if ((MeasuredCurrent>=(CurLimit))&& (Amode!=0))
+		{
+			teste = 0;
+			Amode = 0;
+			USART_Transmite('E');
+			USART_Transmite('\n');
+			teste = 100;
+		}
+		if ((MeasuredCurrent<=(midPoint-10))&&(MeasuredVoltage>=5940)&&(Amode!=0))
+		{
+			teste = 0;
+			Amode = 0;
+			USART_Transmite('O');
+			USART_Transmite('\n');
+			teste = 100;
+		}
+		_delay_ms(1);
+		ShowTime++;
+		if (ShowTime>=250)
+		{
+			ShowTime = 0;
+			USART_Transmite('\n');
+			ident_num(MeasuredCurrent, showStr);
+			USART_Transmite(showStr[3]);
+			USART_Transmite(showStr[2]);
+			USART_Transmite(showStr[1]);
+			USART_Transmite(showStr[0]);
+			USART_Transmite('\n');
+			ident_num(MeasuredVoltage, showStr);
+			USART_Transmite(showStr[3]);
+			USART_Transmite(showStr[2]);
+			USART_Transmite(showStr[1]);
+			USART_Transmite(showStr[0]);
+			USART_Transmite('\n');
+		}
     }
 }
 
