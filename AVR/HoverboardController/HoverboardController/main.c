@@ -17,7 +17,7 @@ int velocity;
 int CurrentVelocity = 0;
 int Amode;
 int teste;
-int CurLimit;
+int CurLimit = 600;
 int ShowTime;
 #define midPoint 512
 
@@ -165,16 +165,16 @@ int main(void)
 		{
 			teste = 0;
 			Amode = 0;
-			USART_Transmite('E');
-			USART_Transmite('\n');
+			//USART_Transmite('E');
+			//USART_Transmite('\n');
 			teste = 100;
 		}
 		if ((MeasuredCurrent<=(midPoint-10))&&(MeasuredVoltage>=5940)&&(Amode!=0))
 		{
 			teste = 0;
 			Amode = 0;
-			USART_Transmite('O');
-			USART_Transmite('\n');
+			//USART_Transmite('O');
+			//USART_Transmite('\n');
 			teste = 100;
 		}
 		_delay_ms(1);
@@ -182,19 +182,24 @@ int main(void)
 		if (ShowTime>=250)
 		{
 			ShowTime = 0;
-			USART_Transmite('\n');
 			ident_num(MeasuredCurrent, showStr);
+			USART_Transmite('I');
 			USART_Transmite(showStr[3]);
 			USART_Transmite(showStr[2]);
 			USART_Transmite(showStr[1]);
 			USART_Transmite(showStr[0]);
+			USART_Transmite('\r');
 			USART_Transmite('\n');
+			
 			ident_num(MeasuredVoltage, showStr);
+			USART_Transmite('V');
 			USART_Transmite(showStr[3]);
 			USART_Transmite(showStr[2]);
 			USART_Transmite(showStr[1]);
 			USART_Transmite(showStr[0]);
+			USART_Transmite('\r');
 			USART_Transmite('\n');
+			
 		}
     }
 }
