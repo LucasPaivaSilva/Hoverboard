@@ -19,7 +19,7 @@ int Amode;
 int teste;
 int CurLimit;
 int ShowTime;
-#define midPoint 524
+#define midPoint 512
 
 uint16_t ReadADC(uint8_t ch)
 {
@@ -42,7 +42,7 @@ ISR(USART_RX_vect)
 			recived_str[0]= 'L';
 			recived_str[1]= USART_Recebe();
 			recived_str[2]= USART_Recebe();
-			USART_Transmite('L');
+			/*USART_Transmite('L');*/
 			recived = 1;
 			NewFromSerial = 1;	
 		}
@@ -51,7 +51,7 @@ ISR(USART_RX_vect)
 			recived_str[0]= 'D';
 			recived_str[1]= USART_Recebe();
 			recived_str[2]= USART_Recebe();
-			USART_Transmite('D');
+			/*USART_Transmite('D');*/
 			recived = 1;
 			NewFromSerial = 1;
 		}
@@ -64,13 +64,13 @@ ISR(USART_RX_vect)
 			CurLimit = CurLimit * 10;
 			CurLimit = (int) CurLimit + midPoint;
 			ident_num(CurLimit, showStr);
-			USART_Transmite('K');
-			USART_Transmite(':');
-			USART_Transmite(showStr[3]);
-			USART_Transmite(showStr[2]);
-			USART_Transmite(showStr[1]);
-			USART_Transmite(showStr[0]);
-			USART_Transmite('\n');
+// 			USART_Transmite('K');
+// 			USART_Transmite(':');
+// 			USART_Transmite(showStr[3]);
+// 			USART_Transmite(showStr[2]);
+// 			USART_Transmite(showStr[1]);
+// 			USART_Transmite(showStr[0]);
+// 			USART_Transmite('\n');
 			recived = 1;
 		}
 	}

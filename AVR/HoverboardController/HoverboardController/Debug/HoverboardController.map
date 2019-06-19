@@ -240,7 +240,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x6d4
+.text           0x00000000      0x696
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -326,40 +326,40 @@ END GROUP
  .text.ReadADC  0x00000090       0x26 main.o
                 0x00000090                ReadADC
  .text.__vector_18
-                0x000000b6      0x172 main.o
+                0x000000b6      0x134 main.o
                 0x000000b6                __vector_18
  .text.__vector_16
-                0x00000228      0x190 main.o
-                0x00000228                __vector_16
- .text.main     0x000003b8      0x206 main.o
-                0x000003b8                main
+                0x000001ea      0x190 main.o
+                0x000001ea                __vector_16
+ .text.main     0x0000037a      0x206 main.o
+                0x0000037a                main
  .text.USART_Inic
-                0x000005be       0x1a USART.o
-                0x000005be                USART_Inic
+                0x00000580       0x1a USART.o
+                0x00000580                USART_Inic
  .text.USART_Transmite
-                0x000005d8       0x10 USART.o
-                0x000005d8                USART_Transmite
+                0x0000059a       0x10 USART.o
+                0x0000059a                USART_Transmite
  .text.USART_Recebe
-                0x000005e8       0x10 USART.o
-                0x000005e8                USART_Recebe
+                0x000005aa       0x10 USART.o
+                0x000005aa                USART_Recebe
  .text.ident_num
-                0x000005f8       0x6a USART.o
-                0x000005f8                ident_num
+                0x000005ba       0x6a USART.o
+                0x000005ba                ident_num
  .text.libgcc.div
-                0x00000662       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
-                0x00000662                _div
-                0x00000662                __divmodhi4
+                0x00000624       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
+                0x00000624                _div
+                0x00000624                __divmodhi4
  .text.libgcc.mul
-                0x0000068a       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
-                0x0000068a                __umulhisi3
+                0x0000064c       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000064c                __umulhisi3
  .text.libgcc.div
-                0x000006a8       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x000006a8                __udivmodhi4
-                0x000006d0                . = ALIGN (0x2)
+                0x0000066a       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x0000066a                __udivmodhi4
+                0x00000692                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000006d0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000006d0                _exit
-                0x000006d0                exit
+ .fini9         0x00000692        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000692                _exit
+                0x00000692                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -378,11 +378,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000006d0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000692        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000006d4                _etext = .
+                0x00000696                _etext = .
 
-.data           0x00800100        0x0 load address 0x000006d4
+.data           0x00800100        0x0 load address 0x00000696
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -418,8 +418,8 @@ END GROUP
                 0x00800119                CurLimit
                 0x0080011b                ShowTime
                 0x0080011d                PROVIDE (__bss_end, .)
-                0x000006d4                __data_load_start = LOADADDR (.data)
-                0x000006d4                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000696                __data_load_start = LOADADDR (.data)
+                0x00000696                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080011d        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -501,11 +501,11 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xd69
+.debug_info     0x00000000      0xce2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x578 main.o
- .debug_info    0x00000b6c      0x1fd USART.o
+ .debug_info    0x000005f4      0x4f1 main.o
+ .debug_info    0x00000ae5      0x1fd USART.o
 
 .debug_abbrev   0x00000000      0x867
  *(.debug_abbrev)
@@ -513,11 +513,11 @@ END GROUP
  .debug_abbrev  0x000005a2      0x1c6 main.o
  .debug_abbrev  0x00000768       0xff USART.o
 
-.debug_line     0x00000000      0x71b
+.debug_line     0x00000000      0x6e5
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000133      0x438 main.o
- .debug_line    0x0000056b      0x1b0 USART.o
+ .debug_line    0x00000133      0x402 main.o
+ .debug_line    0x00000535      0x1b0 USART.o
 
 .debug_frame    0x00000000      0x174
  *(.debug_frame)
