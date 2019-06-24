@@ -7,6 +7,9 @@
 #include "def_principais.h"
 #include <avr/io.h>
 unsigned char showStr[4];
+int IsThereSomethingToSend = 0;
+unsigned char ThingToSend;
+int SentInfo = -1;
 int x;
 volatile int V1;
 int MeasuredCurrent; 
@@ -42,7 +45,8 @@ ISR(USART_RX_vect)
 			recived_str[0]= 'L';
 			recived_str[1]= USART_Recebe();
 			recived_str[2]= USART_Recebe();
-			/*USART_Transmite('L');*/
+			IsThereSomethingToSend = 1;
+			ThingToSend = 'R';
 			recived = 1;
 			NewFromSerial = 1;	
 		}
@@ -51,7 +55,8 @@ ISR(USART_RX_vect)
 			recived_str[0]= 'D';
 			recived_str[1]= USART_Recebe();
 			recived_str[2]= USART_Recebe();
-			/*USART_Transmite('D');*/
+			IsThereSomethingToSend = 1;
+			ThingToSend = 'R';
 			recived = 1;
 			NewFromSerial = 1;
 		}
@@ -64,13 +69,8 @@ ISR(USART_RX_vect)
 			CurLimit = CurLimit * 10;
 			CurLimit = (int) CurLimit + midPoint;
 			ident_num(CurLimit, showStr);
-// 			USART_Transmite('K');
-// 			USART_Transmite(':');
-// 			USART_Transmite(showStr[3]);
-// 			USART_Transmite(showStr[2]);
-// 			USART_Transmite(showStr[1]);
-// 			USART_Transmite(showStr[0]);
-// 			USART_Transmite('\n');
+			IsThereSomethingToSend = 1;
+			ThingToSend = 'R';
 			recived = 1;
 		}
 	}
@@ -165,40 +165,60 @@ int main(void)
 		{
 			teste = 0;
 			Amode = 0;
-			//USART_Transmite('E');
-			//USART_Transmite('\n');
+			IsThereSomethingToSend = 1;
+			ThingToSend = 'E';
 			teste = 100;
 		}
 		if ((MeasuredCurrent<=(midPoint-10))&&(MeasuredVoltage>=5940)&&(Amode!=0))
 		{
 			teste = 0;
 			Amode = 0;
-			//USART_Transmite('O');
-			//USART_Transmite('\n');
+			IsThereSomethingToSend = 1;
+			ThingToSend = 'O';
 			teste = 100;
 		}
 		_delay_ms(1);
+		if (IsThereSomethingToSend == 1)
+		{
+			IsThereSomethingToSend = 0;
+			ShowTime = 0;
+			USART_Transmite(ThingToSend);
+			USART_Transmite('\r');
+			USART_Transmite('\n');			
+		}
 		ShowTime++;
-		if (ShowTime>=250)
+		if (ShowTime>=500)
 		{
 			ShowTime = 0;
-			ident_num(MeasuredCurrent, showStr);
-			USART_Transmite('I');
-			USART_Transmite(showStr[3]);
-			USART_Transmite(showStr[2]);
-			USART_Transmite(showStr[1]);
-			USART_Transmite(showStr[0]);
-			USART_Transmite('\r');
-			USART_Transmite('\n');
-			
-			ident_num(MeasuredVoltage, showStr);
-			USART_Transmite('V');
-			USART_Transmite(showStr[3]);
-			USART_Transmite(showStr[2]);
-			USART_Transmite(showStr[1]);
-			USART_Transmite(showStr[0]);
-			USART_Transmite('\r');
-			USART_Transmite('\n');
+			SentInfo++;
+			if (SentInfo >= 2)
+			{
+				SentInfo = 0;	
+			}
+			{
+			}
+			if (SentInfo == 0)
+			{
+				ident_num(MeasuredCurrent, showStr);
+				USART_Transmite('I');
+				USART_Transmite(showStr[3]);
+				USART_Transmite(showStr[2]);
+				USART_Transmite(showStr[1]);
+				USART_Transmite(showStr[0]);
+				USART_Transmite('\r');
+				USART_Transmite('\n');
+			}
+			if (SentInfo == 1)
+			{
+				ident_num(MeasuredVoltage, showStr);
+				USART_Transmite('V');
+				USART_Transmite(showStr[3]);
+				USART_Transmite(showStr[2]);
+				USART_Transmite(showStr[1]);
+				USART_Transmite(showStr[0]);
+				USART_Transmite('\r');
+				USART_Transmite('\n');
+			}
 			
 		}
     }
